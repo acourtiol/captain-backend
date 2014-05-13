@@ -35,4 +35,9 @@ public class ProjectCtrl {
         return new ArrayList<Project>(); // TODO
     }
 
+    @RequestMapping(value = "/get_by_owner_and_name/{id_account}/{name}", method = RequestMethod.GET, headers = "Accept=application/json")
+    public Project getByOwnerAndName(@PathVariable(value = "id_account") Long idAccount, @PathVariable(value = "name") String name) {
+        return null; // TODO
+    }
+
 }
