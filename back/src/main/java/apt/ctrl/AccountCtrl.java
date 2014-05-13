@@ -27,7 +27,7 @@ public class AccountCtrl {
         this.accountSrv = accountSrv;
     }
 
-    @RequestMapping(value = "/get_by_mail_address/{id_account}", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/get_by_id/{id_account}", method = RequestMethod.GET, headers = "Accept=application/json")
     public Account getById(@PathVariable(value = "id_account") Long idAccount) {
         return null; // TODO
     }
