@@ -1,14 +1,29 @@
 package apt.model;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * @author jeremie.drouet
  * @date 13/05/14
  */
-public class Account {
+@Entity
+@Table(name = "account")
+public class Account implements Serializable {
+    private static final long serialVersionUID = -6070188485677954082L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_account", nullable = false)
     private Long idAccount;
+
+    @Column(name = "mail_address", nullable = false, unique = true)
     private String mailAddress;
+
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     public Long getIdAccount() {
