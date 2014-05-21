@@ -13,49 +13,26 @@ public class Account implements Serializable {
     private static final long serialVersionUID = -6070188485677954082L;
 
     @Id
+    @Column(name = "id_account")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_account", nullable = false)
-    private Long idAccount;
+    private Long id;
 
-    @Column(name = "mail_address", nullable = false, unique = true)
-    private String mailAddress;
+    @Column(name = "uid", unique = true, nullable = false)
+    private String uid;
 
-    @Column(name = "password", nullable = false)
-    private String password;
-
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
-
-    public Long getIdAccount() {
-        return idAccount;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdAccount(Long idAccount) {
-        this.idAccount = idAccount;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getMailAddress() {
-        return mailAddress;
+    public String getUid() {
+        return uid;
     }
 
-    public void setMailAddress(String mailAddress) {
-        this.mailAddress = mailAddress;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
 }
