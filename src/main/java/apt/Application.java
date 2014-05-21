@@ -29,7 +29,7 @@ public class Application {
 
         try {
 
-            String filename = "config.properties";
+            String filename = "/configuration.properties";
             input = this.getClass().getResourceAsStream(filename);
             if (input == null) {
                 System.out.println("Sorry, unable to find " + filename);
