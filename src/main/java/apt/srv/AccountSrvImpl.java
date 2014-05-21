@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -41,13 +40,15 @@ public class AccountSrvImpl implements AccountSrv {
     }
 
     /**
-     * Usually it shouldn't be used, when the user log in for the first time, the in base account should be created
+     * Usually it shouldn't be used, when the user log in for the first time, the in base account should be created.
+     * But this method is a test for creating account folder.
+     *
      * @param account the account to create in database
      * @return the created account
      */
     @Override
     public Account create(Account account) {
-        Account created =this.getAccountDAO().create(account);
+        Account created = this.getAccountDAO().create(account);
         File root = new File(this.getApplicationProperties().getProperty("repositories.path"));
         File child = new File(root, created.getUid());
         child.mkdirs();
