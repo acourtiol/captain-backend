@@ -1,0 +1,98 @@
+dn: c=FR
+objectClass: country  
+objectClass: top
+c: FR
+oid: 1
+
+dn: o=Best ever, c=FR
+objectClass: organization
+objectClass: country
+objectClass: top
+o: Best ever
+
+dn: ou=Developer, o=Best ever, c=FR
+objectClass: organizationUnit
+objectClass: organization
+objectClass: country
+objectClass: top
+ou: Developer
+
+dn: uid=dev1, ou=Developer, o=Best ever, c=FR
+objectClass: person
+objectClass: organizationUnit
+objectClass: organization
+objectClass: country
+objectClass: top
+uid: dev1
+name: dev1
+mail: dev1@example.com
+userPassword: password
+
+dn: uid=dev2, ou=Developer, o=Best ever, c=FR
+objectClass: person
+objectClass: organizationUnit
+objectClass: organization
+objectClass: country
+objectClass: top
+uid: dev2
+name: dev2
+mail: dev2@example.com
+userPassword: password
+
+dn: ou=Manager, o=Best ever, c=FR
+objectClass: organizationUnit
+objectClass: organization
+objectClass: country
+objectClass: top
+ou: Manager
+
+dn: uid=man1, ou=Manager, o=Best ever, c=FR
+objectClass: person
+objectClass: organizationUnit
+objectClass: organization
+objectClass: country
+objectClass: top
+uid: man1
+name: man1
+mail: man1@example.com
+userPassword: password
+
+dn: uid=man2, ou=Manager, o=Best ever, c=FR
+objectClass: person
+objectClass: organizationUnit
+objectClass: organization
+objectClass: country
+objectClass: top
+uid: man2
+name: man2
+mail: man2@example.com
+userPassword: password
+
+dn: ou=Administrator, o=Best ever, c=FR
+objectClass: organizationUnit
+objectClass: organization
+objectClass: country
+objectClass: top
+ou: Manager
+
+dn: uid=admin1, ou=Manager, o=Best ever, c=FR
+objectClass: person
+objectClass: organizationUnit
+objectClass: organization
+objectClass: country
+objectClass: top
+uid: admin1
+name: admin1
+mail: admin1@example.com
+userPassword: password
+
+dn: uid=admin2, ou=Manager, o=Best ever, c=FR
+objectClass: person
+objectClass: organizationUnit
+objectClass: organization
+objectClass: country
+objectClass: top
+uid: admin2
+name: admin2
+mail: admin2@example.com
+userPassword: password
