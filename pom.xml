@@ -21,22 +21,6 @@
             <id>jgit-repository</id>
             <url>https://repo.eclipse.org/content/groups/releases/</url>
         </repository>
-        <repository>
-            <id>forgerock-staging-repository</id>
-            <name>ForgeRock Release Repository</name>
-            <url>http://maven.forgerock.org/repo/releases</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>forgerock-snapshots-repository</id>
-            <name>ForgeRock Snapshot Repository</name>
-            <url>http://maven.forgerock.org/repo/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -183,17 +167,9 @@
 
         <!-- LDAP server -->
         <dependency>
-            <groupId>org.forgerock.opendj</groupId>
-            <artifactId>opendj-ldap-sdk</artifactId>
-            <version>3.0.0-SNAPSHOT</version>
-            <type>pom</type>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.forgerock.opendj</groupId>
-            <artifactId>opendj-core</artifactId>
-            <version>3.0.0-SNAPSHOT</version>
-            <type>pom</type>
+            <groupId>com.unboundid</groupId>
+            <artifactId>unboundid-ldapsdk</artifactId>
+            <version>2.3.6</version>
             <scope>test</scope>
         </dependency>
 

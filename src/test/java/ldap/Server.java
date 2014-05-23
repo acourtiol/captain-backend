@@ -1,6 +1,10 @@
 package ldap;
 
-import java.io.File;
+import com.unboundid.ldap.listener.InMemoryDirectoryServer;
+import com.unboundid.ldap.listener.InMemoryDirectoryServerConfig;
+import com.unboundid.ldap.listener.InMemoryListenerConfig;
+import com.unboundid.ldap.sdk.LDAPException;
+
 import java.io.IOException;
 
 /**
@@ -17,23 +21,35 @@ public class Server {
         return instance;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, LDAPException {
         Server.getInstance().start();
     }
 
-    private String hostname;
     private int port;
-    private File serverHome;
-    private File ldifFile;
+    private String ldifFile;
+    private String adminDn;
+    private String adminPassword;
+    private InMemoryDirectoryServer directoryServer;
 
     private Server() {
-        this.serverHome = new File(System.getProperty("java.io.tmpFile"), "opendj");
-        this.ldifFile = new File("src/test/resources/ldap-content.ldif");
-        this.hostname = "localhost";
+        this.ldifFile = "src/test/resources/ldap-content.ldif";
         this.port = 10983;
+        this.adminDn = "uid=admin, ou=Administrator, o=Best ever, dc=example, dc=com";
+        this.adminPassword = "password";
     }
 
-    public void start() {
-        // TODO
+    public void start() throws LDAPException {
+        InMemoryDirectoryServerConfig config = new InMemoryDirectoryServerConfig("dc=example, dc=com");
+        config.setSchema(null);
+        config.addAdditionalBindCredentials(this.adminDn, this.adminPassword);
+        config.setListenerConfigs(InMemoryListenerConfig.createLDAPConfig("LDAP", this.port));
+
+        this.directoryServer = new InMemoryDirectoryServer(config);
+        this.directoryServer.importFromLDIF(true, this.ldifFile);
+        this.directoryServer.startListening();
+    }
+
+    public void stop() {
+        this.directoryServer.shutDown(true);
     }
 }
