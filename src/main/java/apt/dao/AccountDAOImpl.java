@@ -1,17 +1,16 @@
 package apt.dao;
 
 import apt.model.Account;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.io.Serializable;
+import javax.transaction.Transactional;
 
 /**
  * @author jeremie.drouet
  * @date 13/05/14
  */
 @Repository
+@Transactional
 public class AccountDAOImpl extends GeneralDaoImpl<Account> implements AccountDAO<Account> {
 
     protected String getTableName() {

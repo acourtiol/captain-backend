@@ -7,10 +7,13 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+
 /**
  * Created by Jérémie Drouet on 21/05/14.
  */
 @Repository
+@Transactional
 public class AuthenticationDAOImpl extends GeneralDaoImpl<Authentication> implements AuthenticationDAO {
 
     protected String getTableName() {

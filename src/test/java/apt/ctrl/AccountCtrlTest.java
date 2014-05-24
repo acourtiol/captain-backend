@@ -65,8 +65,8 @@ public class AccountCtrlTest {
     @Test
     public void loginTest() throws Exception {
         Map<String, Object> params = new HashMap<String, Object>();
-        params.put("login", "demo");
-        params.put("pass", "demo");
+        params.put("username", "demo");
+        params.put("password", "demo");
 
         ResponseEntity<InternalAccount> entity = new TestRestTemplate().postForEntity(
                 "http://localhost:" + this.port + "/account/login", params, InternalAccount.class);

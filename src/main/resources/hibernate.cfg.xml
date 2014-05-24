@@ -21,6 +21,7 @@
         <property name="c3p0.idle_test_period">3000</property>
 
         <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.import_files">import-data.sql</property>
 
         <mapping class="apt.model.Account"/>
         <mapping class="apt.model.Contributor"/>
