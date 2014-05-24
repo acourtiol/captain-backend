@@ -29,7 +29,7 @@ public abstract class GeneralDaoImpl<T> implements GeneralDao<T> {
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public T findOne(String param, Object value) {
-        Query q = this.getSessionFactory().getCurrentSession().createQuery("from" + this.getType().getSimpleName() + " o where o."+param+ " = :param");
+        Query q = this.getSessionFactory().getCurrentSession().createQuery("from " + this.getType().getSimpleName() + " o where o."+param+ " = :param");
         q.setParameter("param", value);
 
         Iterator itr = q.iterate();
