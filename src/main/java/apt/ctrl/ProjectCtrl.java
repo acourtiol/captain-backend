@@ -51,8 +51,8 @@ public class ProjectCtrl {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/getbyid", method = RequestMethod.POST, headers = "Accept=application/json")
-    public Project getByid(@RequestBody Long projectId) {
+    @RequestMapping(value = "/get_by_id", method = RequestMethod.POST, headers = "Accept=application/json")
+    public Project getById(@RequestBody Long projectId) {
         return this.projectDAO.findOne("idProject", projectId);
     }
 
