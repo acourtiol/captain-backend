@@ -53,9 +53,9 @@ public class AccountCtrl {
     public InternalAccount login(@RequestBody Map<String, Object> params) {
         String login;
         String pass;
-        if (null != params && params.containsKey("login") && params.containsKey("pass")) {
-            login = (String) params.get("login");
-            pass = (String) params.get("pass");
+        if (null != params && params.containsKey("username") && params.containsKey("password")) {
+            login = (String) params.get("username");
+            pass = (String) params.get("password");
             return accountSrv.login(login, pass);
         }
         return null;

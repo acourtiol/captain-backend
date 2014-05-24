@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
-@Repository
 public abstract class GeneralDaoImpl<T> implements GeneralDao<T> {
 
     protected abstract Class<T> getType();
@@ -27,6 +27,7 @@ public abstract class GeneralDaoImpl<T> implements GeneralDao<T> {
     }
 
     @Override
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public T findOne(String param, String value) {
         Query q = this.getSessionFactory().getCurrentSession().createQuery("from" + this.getType().getSimpleName() + " o where o."+param+ " = :param");
         q.setParameter("param", value);
@@ -40,17 +41,20 @@ public abstract class GeneralDaoImpl<T> implements GeneralDao<T> {
     }
 
     @Override
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public T save(Object o) {
         Serializable id = this.getSessionFactory().getCurrentSession().save(o);
         return (T) this.getSessionFactory().getCurrentSession().get(getType(), id);
     }
 
     @Override
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void delete(Object o) {
         this.getSessionFactory().getCurrentSession().delete(o);
     }
 
     @Override
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public List<T> getList(String param, String value) {
         StringBuilder sb = new StringBuilder("from ");
         sb.append(this.getType().getSimpleName()).append(" o");
