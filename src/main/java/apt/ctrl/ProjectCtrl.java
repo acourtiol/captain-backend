@@ -35,13 +35,7 @@ public class ProjectCtrl {
     @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
     @RequestMapping(value = "/get_by_owner/{id_account}", method = RequestMethod.GET, headers = "Accept=application/json")
     public List<Project> getByOwner(@PathVariable(value = "id_account") Long idAccount) {
-        return new ArrayList<Project>(); // TODO
-    }
-
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    @RequestMapping(value = "/get_by_owner_and_name/{id_account}/{name}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public Project getByOwnerAndName(@PathVariable(value = "id_account") Long idAccount, @PathVariable(value = "name") String name) {
-        return null; // TODO
+        return this.projectDAO.getList("owner", idAccount);
     }
 
     @ResponseStatus(HttpStatus.OK)
