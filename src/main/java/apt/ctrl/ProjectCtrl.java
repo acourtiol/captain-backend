@@ -1,6 +1,8 @@
 package apt.ctrl;
 
+import apt.dao.AccountDAO;
 import apt.dao.ProjectDAO;
+import apt.model.Account;
 import apt.model.Project;
 import apt.srv.ProjectSrv;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class ProjectCtrl {
     @Autowired
     private ProjectDAO projectDAO;
 
+    @Autowired
+    private AccountDAO<Account> accountDAO;
+
     public ProjectSrv getProjectSrv() {
         return projectSrv;
     }
@@ -32,10 +37,11 @@ public class ProjectCtrl {
         this.projectSrv = projectSrv;
     }
 
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/get_by_owner/{id_account}", method = RequestMethod.GET, headers = "Accept=application/json")
     public List<Project> getByOwner(@PathVariable(value = "id_account") Long idAccount) {
-        return this.projectDAO.getList("owner", idAccount);
+        Account account = this.accountDAO.findOne("id", idAccount);
+        return this.projectDAO.getList("owner", account);
     }
 
     @ResponseStatus(HttpStatus.OK)
