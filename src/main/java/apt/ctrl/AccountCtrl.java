@@ -50,10 +50,10 @@ public class AccountCtrl {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody InternalAccount login(@RequestBody Map<String, Object> params) {
+    public InternalAccount login(@RequestBody Map<String, Object> params) {
         String login;
         String pass;
-        if(null != params && params.containsKey("login") && params.containsKey("pass")) {
+        if (null != params && params.containsKey("login") && params.containsKey("pass")) {
             login = (String) params.get("login");
             pass = (String) params.get("pass");
             return accountSrv.login(login, pass);

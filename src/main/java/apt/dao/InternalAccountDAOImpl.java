@@ -1,7 +1,10 @@
 package apt.dao;
 
 import apt.model.InternalAccount;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Expression;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import java.util.Iterator;
@@ -19,15 +22,11 @@ public class InternalAccountDAOImpl extends GeneralDaoImpl<InternalAccount> impl
 
     @Override
     public InternalAccount login(String login, String hashPass) {
-        Query q = this.getSessionFactory().getCurrentSession().createQuery("from Account a where a.username = :user and a.password = :pass");
-        q.setParameter("user", login);
-        q.setParameter("pass", hashPass);
-
-        Iterator it = q.iterate();
-        if(it.hasNext())
-            return (InternalAccount) it.next();
-
-        return null;
+        return (InternalAccount) this.getSessionFactory().getCurrentSession().createCriteria(InternalAccount.class)
+                .add(Restrictions.and(
+                        Restrictions.eq("username", login),
+                        Restrictions.eq("password", hashPass)
+                )).uniqueResult();
     }
 
 }
