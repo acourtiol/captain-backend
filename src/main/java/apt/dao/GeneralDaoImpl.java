@@ -30,9 +30,8 @@ public abstract class GeneralDaoImpl<T> implements GeneralDao<T> {
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public T findOne(String param, Object value) {
-        return (T) this.getSessionFactory().getCurrentSession().createCriteria(getType()).add(
-                Restrictions.eq(param, value)
-        ).uniqueResult();
+        return (T) this.getSessionFactory().getCurrentSession().createCriteria(getType())
+                .add(Restrictions.eq(param, value)).uniqueResult();
     }
 
     @Override

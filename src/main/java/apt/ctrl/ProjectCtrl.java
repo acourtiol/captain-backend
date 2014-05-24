@@ -56,5 +56,4 @@ public class ProjectCtrl {
         return this.projectDAO.findOne("idProject", projectId);
     }
 
-
 }

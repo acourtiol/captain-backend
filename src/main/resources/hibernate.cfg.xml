@@ -29,6 +29,7 @@
         <mapping class="apt.model.Role"/>
         <mapping class="apt.model.LdapAccount"/>
         <mapping class="apt.model.InternalAccount"/>
+        <mapping class="apt.model.Ticket"/>
 
     </session-factory>
 </hibernate-configuration>
