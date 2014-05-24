@@ -22,6 +22,10 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     TicketState state = TicketState.OPEN;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    TicketState type;
+
     @ManyToOne()
     @JoinColumn(name = "id_project", nullable = false)
     Project project;
@@ -78,4 +82,13 @@ public class Ticket {
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    public TicketState getType() {
+        return type;
+    }
+
+    public void setType(TicketState type) {
+        this.type = type;
+    }
+
 }
