@@ -38,15 +38,9 @@ public class TicketsCtrl {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/getList", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/get_list", method = RequestMethod.GET, headers = "Accept=application/json")
     public List<Ticket> getList() {
         return this.ticketDAO.getList();
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/getList", method = RequestMethod.POST, headers = "Accept=application/json")
-    public List<Ticket> getList(@RequestBody Long projectId) {
-        return this.ticketDAO.getList("projectId", projectId);
     }
 
 }
