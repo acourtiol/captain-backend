@@ -1,6 +1,5 @@
 package apt.ctrl;
 
-import apt.model.Authentication;
 import apt.srv.AuthenticationSrv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
