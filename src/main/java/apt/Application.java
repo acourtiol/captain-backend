@@ -10,9 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * Created by Jérémie Drouet on 20/05/14.
- */
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration

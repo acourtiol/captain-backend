@@ -12,24 +12,20 @@ import java.io.Serializable;
  * @date 13/05/14
  */
 @Repository
-public class AccountDAOImpl implements AccountDAO {
+public class AccountDAOImpl extends GeneralDaoImpl<Account> implements AccountDAO<Account> {
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    protected String getTableName() {
+        return "account";
     }
 
     @Override
-    public Account create(Account account) {
-        Serializable id = this.getSessionFactory().getCurrentSession().save(account);
-        return (Account) this.getSessionFactory().getCurrentSession().get(Account.class, id);
+    protected Class<Account> getType() {
+        return Account.class;
     }
 
-    // TODO
+    @Override
+    public Account login(String login, String hashPass) {
+        //TODO
+        return null;
+    }
 }

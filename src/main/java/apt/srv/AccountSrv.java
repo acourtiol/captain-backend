@@ -1,6 +1,8 @@
 package apt.srv;
 
 import apt.model.Account;
+import apt.model.InternalAccount;
+import apt.model.LdapAccount;
 
 import java.io.IOException;
 
@@ -10,8 +12,7 @@ import java.io.IOException;
  */
 public interface AccountSrv {
 
-    public Account create(Account account);
-
-    // TODO
+    public LdapAccount create(LdapAccount account);
+    InternalAccount login(String login, String pass);
 
 }

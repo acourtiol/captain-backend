@@ -1,6 +1,7 @@
 package apt;
 
 import apt.Application;
+import apt.utils.MethodsUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,4 +35,5 @@ public class ApplicationTest {
                 "http://localhost:" + this.port + "/account/get_by_id/1", String.class);
         assertEquals(HttpStatus.NOT_IMPLEMENTED, entity.getStatusCode());
     }
+
 }
