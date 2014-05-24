@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "project", uniqueConstraints = {@UniqueConstraint(columnNames = {"id_owner", "title"})})
-public class Project implements Serializable {
+public class Project extends Directory implements Serializable {
     private static final long serialVersionUID = -3979077272741003657L;
 
     @Id

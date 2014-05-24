@@ -1,5 +1,6 @@
 package apt.dao;
 
+import apt.model.Project;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -7,6 +8,9 @@ import org.springframework.stereotype.Repository;
  * @date 13/05/14
  */
 @Repository
-public class ProjectDAOImpl implements ProjectDAO {
-    // TODO
+public class ProjectDAOImpl extends GeneralDaoImpl<Project> implements ProjectDAO {
+    @Override
+    protected Class<Project> getType() {
+        return Project.class;
+    }
 }

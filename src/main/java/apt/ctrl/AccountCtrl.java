@@ -1,13 +1,16 @@
 package apt.ctrl;
 
 import apt.model.Account;
+import apt.model.InternalAccount;
+import apt.model.LdapAccount;
 import apt.srv.AccountSrv;
+import apt.utils.MethodsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author jeremie.drouet
@@ -42,8 +45,20 @@ public class AccountCtrl {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/create", method = RequestMethod.POST, headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Account create(@RequestBody Account account) {
+    public Account create(@RequestBody LdapAccount account) {
         return this.getAccountSrv().create(account);
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST, headers = "Accept=application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody InternalAccount login(@RequestBody Map<String, Object> params) {
+        String login;
+        String pass;
+        if(null != params && params.containsKey("login") && params.containsKey("pass")) {
+            login = (String) params.get("login");
+            pass = (String) params.get("pass");
+            return accountSrv.login(login, pass);
+        }
+        return null;
     }
 
 }

@@ -2,6 +2,9 @@ package apt.srv;
 
 import apt.dao.AccountDAO;
 import apt.model.Account;
+import apt.model.InternalAccount;
+import apt.model.LdapAccount;
+import apt.utils.MethodsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,25 +21,16 @@ import java.util.Properties;
 public class AccountSrvImpl implements AccountSrv {
 
     @Autowired
-    private AccountDAO accountDAO;
+    private AccountDAO<LdapAccount> ldapAccountAccountDAO;
+
+    @Autowired
+    private AccountDAO<InternalAccount> internalAccountDAO;
 
     @Autowired
     private Properties applicationProperties;
 
-    public AccountDAO getAccountDAO() {
-        return accountDAO;
-    }
-
-    public void setAccountDAO(AccountDAO accountDAO) {
-        this.accountDAO = accountDAO;
-    }
-
     public Properties getApplicationProperties() {
         return applicationProperties;
-    }
-
-    public void setApplicationProperties(Properties applicationProperties) {
-        this.applicationProperties = applicationProperties;
     }
 
     /**
@@ -47,11 +41,16 @@ public class AccountSrvImpl implements AccountSrv {
      * @return the created account
      */
     @Override
-    public Account create(Account account) {
-        Account created = this.getAccountDAO().create(account);
+    public LdapAccount create(LdapAccount account) {
+        LdapAccount created = this.ldapAccountAccountDAO.save(account);
         File root = new File(this.getApplicationProperties().getProperty("repositories.path"));
         File child = new File(root, created.getUid());
         child.mkdirs();
         return created;
+    }
+
+    @Override
+    public InternalAccount login(String login, String pass) {
+        return this.internalAccountDAO.login(login, MethodsUtils.hashPass(pass));
     }
 }
