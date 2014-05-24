@@ -52,7 +52,7 @@ public class ProjectCtrl {
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/get_by_id/{id_project}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public Project getById(@PathVariable(value = "id_account") Long projectId) {
+    public Project getById(@PathVariable(value = "id_project") Long projectId) {
         return this.projectDAO.findOne("idProject", projectId);
     }
 
