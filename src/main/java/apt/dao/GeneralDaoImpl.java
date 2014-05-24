@@ -49,13 +49,19 @@ public abstract class GeneralDaoImpl<T> implements GeneralDao<T> {
 
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
+    public T merge(T o) {
+        return (T) this.getSessionFactory().getCurrentSession().merge(o);
+    }
+
+    @Override
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public void delete(Object o) {
         this.getSessionFactory().getCurrentSession().delete(o);
     }
 
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
-    public List<T> getList(String param, String value) {
+    public List<T> getList(String param, Object value) {
         StringBuilder sb = new StringBuilder("from ");
         sb.append(this.getType().getSimpleName()).append(" o");
 
