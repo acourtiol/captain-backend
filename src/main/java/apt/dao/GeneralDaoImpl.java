@@ -1,6 +1,7 @@
 package apt.dao;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.hibernate.Query;
@@ -29,15 +30,9 @@ public abstract class GeneralDaoImpl<T> implements GeneralDao<T> {
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public T findOne(String param, Object value) {
-        Query q = this.getSessionFactory().getCurrentSession().createQuery("from " + this.getType().getSimpleName() + " o where o."+param+ " = :param");
-        q.setParameter("param", value);
-
-        Iterator itr = q.iterate();
-        while(itr.hasNext()) {
-            return (T) itr.next();
-        }
-
-        return null;
+        return (T) this.getSessionFactory().getCurrentSession().createCriteria(getType()).add(
+                Restrictions.eq(param, value)
+        ).uniqueResult();
     }
 
     @Override
