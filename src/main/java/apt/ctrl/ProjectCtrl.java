@@ -1,5 +1,6 @@
 package apt.ctrl;
 
+import apt.dao.ProjectDAO;
 import apt.model.Project;
 import apt.srv.ProjectSrv;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class ProjectCtrl {
     @Autowired
     private ProjectSrv projectSrv;
 
+    @Autowired
+    private ProjectDAO projectDAO;
+
     public ProjectSrv getProjectSrv() {
         return projectSrv;
     }
@@ -39,5 +43,18 @@ public class ProjectCtrl {
     public Project getByOwnerAndName(@PathVariable(value = "id_account") Long idAccount, @PathVariable(value = "name") String name) {
         return null; // TODO
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, headers = "Accept=application/json")
+    public Project create(@RequestBody Project project) {
+        return this.projectDAO.save(project);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/getbyid", method = RequestMethod.POST, headers = "Accept=application/json")
+    public Project getByid(@RequestBody Long projectId) {
+        return this.projectDAO.findOne("idProject", projectId);
+    }
+
 
 }
