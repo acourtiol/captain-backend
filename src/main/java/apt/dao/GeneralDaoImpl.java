@@ -36,9 +36,9 @@ public abstract class GeneralDaoImpl<T> implements GeneralDao<T> {
 
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
-    public T save(Object o) {
-        Serializable id = this.getSessionFactory().getCurrentSession().save(o);
-        return (T) this.getSessionFactory().getCurrentSession().get(getType(), id);
+    public T save(T o) {
+        this.getSessionFactory().getCurrentSession().persist(o);
+        return (T) o;
     }
 
     @Override
@@ -56,8 +56,8 @@ public abstract class GeneralDaoImpl<T> implements GeneralDao<T> {
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public List<T> getList(String param, Object value) {
-            return this.getSessionFactory().getCurrentSession().createCriteria(getType())
-                    .add(Restrictions.eq(param, value)).list();
+        return this.getSessionFactory().getCurrentSession().createCriteria(getType())
+                .add(Restrictions.eq(param, value)).list();
     }
 
     @Override
