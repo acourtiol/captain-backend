@@ -41,6 +41,9 @@ public class Project extends Directory implements Serializable {
     @LazyCollection(value = LazyCollectionOption.FALSE)
     private Set<Ticket> tickets;
 
+    @Formula(value = "(SELECT count(*) FROM mail m WHERE m.id_project = id_project)")
+    private Integer nbMails;
+
     @Formula(value = "(SELECT count(*) FROM ticket t WHERE t.state = 'OPEN' and t.id_project = id_project)")
     private Integer ticketsOpened;
 
@@ -146,5 +149,13 @@ public class Project extends Directory implements Serializable {
 
     public void setTicketsResolved(Integer ticketsResolved) {
         this.ticketsResolved = ticketsResolved;
+    }
+
+    public Integer getNbMails() {
+        return nbMails;
+    }
+
+    public void setNbMails(Integer nbMails) {
+        this.nbMails = nbMails;
     }
 }

@@ -56,25 +56,13 @@ public abstract class GeneralDaoImpl<T> implements GeneralDao<T> {
     @Override
     @Transactional(Transactional.TxType.REQUIRES_NEW)
     public List<T> getList(String param, Object value) {
-        StringBuilder sb = new StringBuilder("from ");
-        sb.append(this.getType().getSimpleName()).append(" o");
-
-        if(null != param && null != value) {
-            sb.append(" where o.").append(param).append(" =:param");
-        }
-
-
-        Query q = this.getSessionFactory().getCurrentSession().createQuery(sb.toString());
-
-        if(null != param && null != value) {
-            q.setParameter("param", value);
-        }
-
-        return q.list();
+            return this.getSessionFactory().getCurrentSession().createCriteria(getType())
+                    .add(Restrictions.eq(param, value)).list();
     }
 
     @Override
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
     public List getList() {
-        return getList(null, null);
+        return this.getSessionFactory().getCurrentSession().createCriteria(getType()).list();
     }
 }

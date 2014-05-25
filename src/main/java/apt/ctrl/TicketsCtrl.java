@@ -1,6 +1,8 @@
 package apt.ctrl;
 
+import apt.dao.ProjectDAO;
 import apt.dao.TicketDAO;
+import apt.model.Project;
 import apt.model.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,8 @@ public class TicketsCtrl {
 
     @Autowired
     private TicketDAO ticketDAO;
+    @Autowired
+    private ProjectDAO projectDAO;
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/create", method = RequestMethod.POST, headers = "Accept=application/json")
@@ -46,7 +50,8 @@ public class TicketsCtrl {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/getList", method = RequestMethod.POST, headers = "Accept=application/json")
     public List<Ticket> getList(@RequestBody Long projectId) {
-        return this.ticketDAO.getList("projectId", projectId);
+        Project project = this.projectDAO.findOne("idProject", projectId);
+        return this.ticketDAO.getList("project", project);
     }
 
 }
