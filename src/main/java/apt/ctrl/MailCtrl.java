@@ -24,7 +24,7 @@ public class MailCtrl {
     private ProjectDAO projectDAO;
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/getList/{project_id}", method = RequestMethod.GET, headers = "Accept=application/json")
+    @RequestMapping(value = "/get_list/{project_id}", method = RequestMethod.GET, headers = "Accept=application/json")
     public List<Mail> getList(@PathVariable(value = "project_id")  Long projectId) {
         Project project = this.projectDAO.findOne("idProject", projectId);
         return this.mailDAO.getList("project", project);
