@@ -1,6 +1,7 @@
 package apt.model;
 
 import apt.model.enums.TicketState;
+import apt.model.enums.TicketType;
 
 import javax.persistence.*;
 
@@ -24,7 +25,7 @@ public class Ticket {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    TicketState type;
+    TicketType type;
 
     @ManyToOne()
     @JoinColumn(name = "id_project", nullable = false)
@@ -83,11 +84,11 @@ public class Ticket {
         this.account = account;
     }
 
-    public TicketState getType() {
+    public TicketType getType() {
         return type;
     }
 
-    public void setType(TicketState type) {
+    public void setType(TicketType type) {
         this.type = type;
     }
 
