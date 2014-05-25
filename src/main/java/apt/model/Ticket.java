@@ -10,34 +10,34 @@ import javax.persistence.*;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id_ticket",nullable = false)
+    @Column(name = "id_ticket", nullable = false)
     private Long idTicket;
 
-    @Column(name="title",nullable = false)
-    String title;
+    @Column(name = "title", nullable = false)
+    private String title;
 
-    @Column(name="description")
-    String description;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    TicketState state = TicketState.OPEN;
+    @Column(name = "description", length = 2048)
+    private String description;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    TicketType type;
+    private TicketState state = TicketState.OPEN;
 
-    @ManyToOne
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TicketType type;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "id_project", nullable = false)
-    Project project;
+    private Project project;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "id_creator", nullable = false)
-    Account creator;
+    private Account creator;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "id_affectedTo")
-    Account affectedTo;
+    private Account affectedTo;
 
     public Long getIdTicket() {
         return idTicket;

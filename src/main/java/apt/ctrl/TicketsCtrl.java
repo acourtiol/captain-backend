@@ -6,6 +6,7 @@ import apt.model.Project;
 import apt.model.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +25,8 @@ public class TicketsCtrl {
     private ProjectDAO projectDAO;
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/create", method = RequestMethod.POST, headers = "Accept=application/json")
+    @RequestMapping(value = "/create", method = RequestMethod.POST, headers = "Accept=application/json",
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public Ticket create(@RequestBody Ticket ticket) {
         return this.ticketDAO.save(ticket);
     }
