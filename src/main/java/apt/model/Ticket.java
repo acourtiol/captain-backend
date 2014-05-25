@@ -2,6 +2,7 @@ package apt.model;
 
 import apt.model.enums.TicketState;
 import apt.model.enums.TicketType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -27,6 +28,7 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private TicketType type;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "id_project", nullable = false)
     private Project project;
@@ -103,4 +105,17 @@ public class Ticket {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "idTicket=" + idTicket +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", state=" + state +
+                ", type=" + type +
+                ", project=" + project +
+                ", creator=" + creator +
+                ", affectedTo=" + affectedTo +
+                '}';
+    }
 }

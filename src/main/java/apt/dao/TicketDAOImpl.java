@@ -1,6 +1,8 @@
 package apt.dao;
 
+import apt.model.Project;
 import apt.model.Ticket;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

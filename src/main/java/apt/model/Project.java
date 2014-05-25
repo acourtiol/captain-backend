@@ -37,7 +37,7 @@ public class Project extends Directory implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "project")
     @LazyCollection(value = LazyCollectionOption.FALSE)
     private Set<Ticket> tickets;
 
@@ -105,10 +105,10 @@ public class Project extends Directory implements Serializable {
     @JsonProperty
     public Map<String, Integer> getStateCount() {
         Map<String, Integer> stateCount = new HashMap<String, Integer>();
-        if(null != this.getTickets()) {
-            for(Ticket t : this.getTickets()) {
+        if (null != this.getTickets()) {
+            for (Ticket t : this.getTickets()) {
                 Integer num = 1;
-                if(stateCount.containsKey(t.getState().toString())) {
+                if (stateCount.containsKey(t.getState().toString())) {
                     num = stateCount.get(t.getState().toString()) + 1;
                 }
                 stateCount.put(t.getState().toString(), num);
