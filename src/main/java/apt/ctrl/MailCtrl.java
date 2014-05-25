@@ -24,8 +24,14 @@ public class MailCtrl {
     private ProjectDAO projectDAO;
 
     @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/get_by_id/{id_mail}", method = RequestMethod.GET, headers = "Accept=application/json")
+    public Mail getById(@PathVariable(value = "id_mail") Long idMail) {
+        return this.mailDAO.findOne("idMail", idMail);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/get_list/{project_id}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public List<Mail> getList(@PathVariable(value = "project_id")  Long projectId) {
+    public List<Mail> getList(@PathVariable(value = "project_id") Long projectId) {
         Project project = this.projectDAO.findOne("idProject", projectId);
         return this.mailDAO.getList("project", project);
     }
