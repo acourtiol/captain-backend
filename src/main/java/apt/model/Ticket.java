@@ -13,7 +13,7 @@ public class Ticket {
     @Column(name="id_ticket",nullable = false)
     private Long idTicket;
 
-    @Column(name="title",nullable = false, unique = true)
+    @Column(name="title",nullable = false)
     String title;
 
     @Column(name="description")
@@ -27,14 +27,17 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     TicketType type;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "id_project", nullable = false)
     Project project;
 
     @ManyToOne
-    @JoinColumn(name = "id_account", nullable = false)
-    Account account;
+    @JoinColumn(name = "id_creator", nullable = false)
+    Account creator;
 
+    @ManyToOne
+    @JoinColumn(name = "id_affectedTo")
+    Account affectedTo;
 
     public Long getIdTicket() {
         return idTicket;
@@ -76,12 +79,20 @@ public class Ticket {
         this.project = project;
     }
 
-    public Account getAccount() {
-        return account;
+    public Account getCreator() {
+        return creator;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setCreator(Account creator) {
+        this.creator = creator;
+    }
+
+    public Account getAffectedTo() {
+        return affectedTo;
+    }
+
+    public void setAffectedTo(Account affectedTo) {
+        this.affectedTo = affectedTo;
     }
 
     public TicketType getType() {
