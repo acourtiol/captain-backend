@@ -1,5 +1,6 @@
 package apt.model;
 
+import apt.model.enums.CompilationType;
 import apt.model.enums.TicketState;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Formula;
@@ -56,11 +57,13 @@ public class Project extends Directory implements Serializable {
     @Formula(value = "(SELECT count(*) FROM ticket t WHERE t.state = 'RESOLVED' and t.id_project = id_project)")
     private Integer ticketsResolved;
 
+    @Column(name = "compilation_state")
+    @Enumerated(EnumType.STRING)
+    private CompilationType compilationState;
+
 
 //    @Formula(value = "(SELECT t.state, count(*) FROM Ticket t group by t.state")
 //    Map<String, Integer> countByState;
-
-    // and t.id_project = this_.id_project
 
     public Long getIdProject() {
         return idProject;
@@ -100,6 +103,14 @@ public class Project extends Directory implements Serializable {
 
     public void setTickets(Set<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public CompilationType getCompilationState() {
+        return compilationState;
+    }
+
+    public void setCompilationState(CompilationType compilationState) {
+        this.compilationState = compilationState;
     }
 
     @JsonProperty
