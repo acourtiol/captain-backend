@@ -1,11 +1,18 @@
 package apt;
 
+import org.h2.jdbcx.JdbcDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.context.annotation.*;
+import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
+import org.springframework.orm.hibernate4.HibernateTransactionManager;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -13,40 +20,22 @@ import java.util.Properties;
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
+@PropertySource({"classpath:configuration.properties"})
+@ImportResource(value = "classpath:spring-config.xml")
 public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean(name = "applicationProperties")
-    public Properties loadProperties() {
-        Properties prop = new Properties();
-        InputStream input = null;
+    @Autowired
+    private Environment environment;
 
-        try {
+    public Environment getEnvironment() {
+        return environment;
+    }
 
-            String filename = "/configuration.properties";
-            input = this.getClass().getResourceAsStream(filename);
-            if (input == null) {
-                System.out.println("Sorry, unable to find " + filename);
-                return prop;
-            }
-
-            //load a properties file from class path, inside static method
-            prop.load(input);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return prop;
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 }

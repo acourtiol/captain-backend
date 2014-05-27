@@ -1,15 +1,24 @@
 package apt.model;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "account")
-@DiscriminatorColumn(name="type", discriminatorType= DiscriminatorType.STRING)
-@DiscriminatorValue("internal")
+@Table(name = "internal_account")
+@DiscriminatorValue("apt.model.InternalAccount")
 public class InternalAccount extends Account {
-    @Column(name = "username")
+    private static final long serialVersionUID = -2863593328505761671L;
+
+    @Column(name = "username", nullable = false, unique = true)
+    @JsonProperty(value = "username")
     private String username;
-    @Column(name = "password")
+
+    @Column(name = "password", nullable = false)
+    @JsonProperty(value = "password")
     private String password;
 
     public String getUsername() {

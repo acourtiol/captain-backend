@@ -1,7 +1,5 @@
 package apt.model;
 
-import apt.model.enums.CompilationType;
-import apt.model.enums.TicketState;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.LazyCollection;
@@ -20,50 +18,27 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "project", uniqueConstraints = {@UniqueConstraint(columnNames = {"id_owner", "title"})})
-public class Project extends Directory implements Serializable {
+public class Project implements Serializable {
     private static final long serialVersionUID = -3979077272741003657L;
 
     @Id
+    @JsonProperty(value = "id_project")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_project", nullable = false)
     private Long idProject;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JsonProperty(value = "owner")
     @JoinColumn(name = "id_owner", nullable = false)
     private Account owner;
 
+    @JsonProperty(value = "title")
     @Column(name = "title", nullable = false)
     private String title;
 
+    @JsonProperty(value = "description")
     @Column(name = "description")
     private String description;
-
-    @OneToMany(mappedBy = "project")
-    @LazyCollection(value = LazyCollectionOption.FALSE)
-    private Set<Ticket> tickets;
-
-    @Formula(value = "(SELECT count(*) FROM mail m WHERE m.id_project = id_project)")
-    private Integer nbMails;
-
-    @Formula(value = "(SELECT count(*) FROM ticket t WHERE t.state = 'OPEN' and t.id_project = id_project)")
-    private Integer ticketsOpened;
-
-    @Formula(value = "(SELECT count(*) FROM ticket t WHERE t.state = 'CLOSED' and t.id_project = id_project)")
-    private Integer ticketsClosed;
-
-    @Formula(value = "(SELECT count(*) FROM ticket t WHERE t.state = 'IN_PROGRESS' and t.id_project = id_project)")
-    private Integer ticketsInProgress;
-
-    @Formula(value = "(SELECT count(*) FROM ticket t WHERE t.state = 'RESOLVED' and t.id_project = id_project)")
-    private Integer ticketsResolved;
-
-    @Column(name = "compilation_state")
-    @Enumerated(EnumType.STRING)
-    private CompilationType compilationState;
-
-
-//    @Formula(value = "(SELECT t.state, count(*) FROM Ticket t group by t.state")
-//    Map<String, Integer> countByState;
 
     public Long getIdProject() {
         return idProject;
@@ -97,76 +72,4 @@ public class Project extends Directory implements Serializable {
         this.description = description;
     }
 
-    public Set<Ticket> getTickets() {
-        return tickets;
-    }
-
-    public void setTickets(Set<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    public CompilationType getCompilationState() {
-        return compilationState;
-    }
-
-    public void setCompilationState(CompilationType compilationState) {
-        this.compilationState = compilationState;
-    }
-
-    @JsonProperty
-    public Map<String, Integer> getStateCount() {
-        Map<String, Integer> stateCount = new HashMap<String, Integer>();
-        if (null != this.getTickets()) {
-            for (Ticket t : this.getTickets()) {
-                Integer num = 1;
-                if (stateCount.containsKey(t.getState().toString())) {
-                    num = stateCount.get(t.getState().toString()) + 1;
-                }
-                stateCount.put(t.getState().toString(), num);
-            }
-        }
-
-        return stateCount;
-    }
-
-
-    public Integer getTicketsOpened() {
-        return ticketsOpened;
-    }
-
-    public void setTicketsOpened(Integer ticketsOpened) {
-        this.ticketsOpened = ticketsOpened;
-    }
-
-    public Integer getTicketsClosed() {
-        return ticketsClosed;
-    }
-
-    public void setTicketsClosed(Integer ticketsClosed) {
-        this.ticketsClosed = ticketsClosed;
-    }
-
-    public Integer getTicketsInProgress() {
-        return ticketsInProgress;
-    }
-
-    public void setTicketsInProgress(Integer ticketsInProgress) {
-        this.ticketsInProgress = ticketsInProgress;
-    }
-
-    public Integer getTicketsResolved() {
-        return ticketsResolved;
-    }
-
-    public void setTicketsResolved(Integer ticketsResolved) {
-        this.ticketsResolved = ticketsResolved;
-    }
-
-    public Integer getNbMails() {
-        return nbMails;
-    }
-
-    public void setNbMails(Integer nbMails) {
-        this.nbMails = nbMails;
-    }
 }

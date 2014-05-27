@@ -22,7 +22,6 @@
         <property name="c3p0.idle_test_period">3000</property>
 
         <property name="hibernate.hbm2ddl.auto">create</property>
-        <property name="hibernate.hbm2ddl.import_files">import-data.sql</property>
 
         <mapping class="apt.model.Account"/>
         <mapping class="apt.model.Contributor"/>
@@ -30,8 +29,6 @@
         <mapping class="apt.model.Role"/>
         <mapping class="apt.model.LdapAccount"/>
         <mapping class="apt.model.InternalAccount"/>
-        <mapping class="apt.model.Ticket"/>
-        <mapping class="apt.model.Mail"/>
 
     </session-factory>
 </hibernate-configuration>

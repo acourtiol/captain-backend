@@ -3,9 +3,7 @@ package apt.dao;
 import apt.model.Account;
 
 /**
- * @author jeremie.drouet
- * @date 13/05/14
+ * Created by Jérémie Drouet on 26/05/14.
  */
-public interface AccountDAO<T> extends GeneralDao<T> {
-    T login(String login, String hashPass);
+public interface AccountDAO extends GenericDAO<Account> {
 }

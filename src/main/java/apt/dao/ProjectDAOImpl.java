@@ -3,15 +3,11 @@ package apt.dao;
 import apt.model.Project;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
-
 /**
- * @author jeremie.drouet
- * @date 13/05/14
+ * Created by Jérémie Drouet on 26/05/14.
  */
-@Transactional
 @Repository
-public class ProjectDAOImpl extends GeneralDaoImpl<Project> implements ProjectDAO {
+public class ProjectDAOImpl extends GenericDAOImpl<Project> implements ProjectDAO {
     @Override
     protected Class<Project> getType() {
         return Project.class;
