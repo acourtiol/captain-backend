@@ -31,6 +31,5 @@
         <mapping class="apt.model.LdapAccount"/>
         <mapping class="apt.model.InternalAccount"/>
 
-
     </session-factory>
 </hibernate-configuration>

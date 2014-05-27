@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author jeremie.drouet
@@ -64,5 +67,4 @@ public class Project implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
 }
